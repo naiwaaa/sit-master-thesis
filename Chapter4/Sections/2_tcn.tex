@@ -1,0 +1,95 @@
+\Figure[tb][width=0.7\linewidth]{\FigsDir/tho1.png}
+   {An illustration of a stack of causal convolution layers with the convolution filter size of $1 \times 2$.\label{fig:CausalConv}}
+
+\Figure[tb][width=0.7\linewidth]{\FigsDir/tho2.png}
+   {An illustration of a stack of dilated causal convolution layers with the convolution filter size of $1 \times 2$.\label{fig:DilatedConv}}
+   
+\Figure[tb][width=0.6\linewidth]{\FigsDir/tho3.png}
+   {The residual block in TCN architecture.\label{fig:TCN_residualBlock}}
+
+In this section, TCN architecture is briefly discussed to summarize its advantages and disadvantages in sequence modeling tasks. Thereby, the conclusions of this section will be the crucial foundation for the subsequent improvements proposed in CNN-QoE, which are stated in Section \ref{CNN:sec:Proposals}.
+
+%=========================================
+
+\subsection{1D Convolutions}
+
+CNN was traditionally designed to operate on two dimensions (2D) data such as images.
+An input image is passed through a series of 2D convolution layers.
+Each 2D convolution applies and slides a number of 2D filters through the image.
+To adapt CNN for time-series data, TCN utilizes 1D convolution where the filters exhibit only one dimension (time) instead of two dimensions (width and height).
+Concretely, a time-series input is convolved with a filter size of $1 \times k$.
+
+Furthermore, 1D convolutions are well-suited for real-time tasks due to their low computational requirements.
+1D convolutions require simple array operations rather than matrix operations, hence, the computational complexity is significantly reduced in comparison with 2D convolutions.
+In addition, the convolution operations allow fully parallel processing, resulting in a significant improvement of computational speed.
+
+
+%=========================================
+
+\subsection{Causal Convolutions}
+
+A \textit{causal convolution} is a convolution layer to ensure there is no information "leakage" from future into past.
+In other words, given an time-series input $x_0,..., x_{T}$, the predicted output $\widehat{y}_t$ at a time instant $t$ depends only on the inputs at time $t$ and earlier $\mathbf{x}_t, \mathbf{x}_{t-1}, ...,\mathbf{x}_{t-r+1}$.
+For instance, as illustrated in Figure \ref{fig:CausalConv}, the predicted $\widehat{y}_8$ is computed by a combination of the inputs $x_1, ..., x_8$.
+It can be observed that, in order to achieve a long effective history size or a large receptive field size, an extremely deep network or very large filters are needed, which significantly increases the model computational complexity.
+Thus, TCN architecture utilizes dilated causal convolutions rather than causal convolutions.
+The advantages and disadvantages of dilated causal convolutions are discussed below.
+
+%=========================================
+
+\subsection{Dilated Causal Convolutions}
+
+TCN adopts a dilated causal convolution comprising of the causal and the dilated convolutions.
+The causal convolution has already been described in the previous subsection.
+Meanwhile, dilated convolution \cite{Network_Dilated1, Network_Dilated2, Network_Dilated3} is a convolution where the convolution filter is applied to a larger area than its length by skipping input values with several steps.
+Therefore, the dilated causal convolution can effectively allow the network to operate on a larger scale than the one with a normal convolution while ensuring that there is no leakage of information from the future to the past.
+The dilated causal convolution is defined as:
+
+\begin{equation}
+  D(t) = \sum_{i=0}^{k-1} f(i) \cdot \mathbf{x}_{t-d \cdot i}
+  \label{eqn:TCN_dilatedConv}
+\end{equation}
+where, $d$ is the dilation factor, $f$ is a filter size of $1 \times k$.
+$d$ exponentially increases with the depth of the network (i.e., $d = 2^l$ at layer $l$ of the network).
+For instance, given the network with $L$ layers of dilated causal convolutions $l = 1, ..., L$, the dilation factors exponentially increase by a factor of $2$ for every layer:
+
+\begin{equation}
+  d \in [2^0, 2^1, ..., 2^{L-1}]
+  \label{eqn:TCN_dilatedFactor}
+\end{equation}
+
+Figure \ref{fig:DilatedConv} depicts a network with three dilated causal convolutions for dilations 1, 2, and 4.
+Using the dilated causal convolutions, the model is able to efficiently learn the connections between far-away time-steps in the time series data.
+Moreover, as opposed to causal convolutions in Figure \ref{fig:CausalConv}, the dilated causal convolutions require fewer layers even though the receptive field size is the same.
+A stack of dilated causal convolutions enables the network to have a very large receptive field with just a few layers, while preserving the computational efficiency.
+Therefore, dilated causal convolutions reduce the total number of learnable parameters, resulting in more efficient training and light-weight model.
+
+However, the dilated causal convolutions have problem with local feature extraction.
+As shown in Figure \ref{fig:DilatedConv}, it can be seen that the filter applied to the time-series input is not overlapped due to the skipping steps of the dilation factor.
+As long as the dilation factor increases, the feature is extracted from only far-apart time-steps, but not from adjacent time-steps.
+Therefore, the local connection among adjacent time-steps is not fully extracted at higher layers.
+
+%=========================================
+
+\subsection{Residual Block}
+
+The depth of the model is important for learning robust representations, but also comes with a challenge of vanishing gradients.
+The residual block has been found to be an effective way to address this issue and build very deep networks \cite{Network_Residual1}.
+A residual block contains a series of transformation functions $\emph{F}$, whose outputs are added to the input $\mathbf{x}$ of the block:
+
+\begin{equation}
+  o = Activation(x+\emph{F}(x))
+\end{equation}
+
+The residual block is used between each layer in TCN to speed up convergence and enable the training of much deeper models.
+The residual block for TCN is shown in Figure \ref{fig:TCN_residualBlock}.
+It consists of dilated causal convolution, ReLU activation function \cite{Network_Relu}, weight normalization \cite{Network_WeightNorm1}, and spatial dropout \cite{Network_Dropout1} for regularization.
+Having two layers of dilated causal convolution in the TCN's residual block is suitable for complex challenges such as speech enhancement \cite{Network_TCN}.
+Compared with speech signal data, sequential QoE data is much simpler.
+That is to say, the two layers of dilated causal convolution are redundant and are not optimal for the QoE prediction problem.
+
+% The $1 \times 1$ convolution is used to get the channels, which makes the addition of inputs and outputs compatible.
+
+%=========================================
+
+In TCN architecture, equations (\ref{eqn:TCN_dilatedConv}) and (\ref{eqn:TCN_dilatedFactor}) suggest that the TCN model heavily depends on the network depth $L$ and the filter size $k$.

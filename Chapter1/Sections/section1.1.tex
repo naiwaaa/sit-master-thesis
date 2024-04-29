@@ -1,0 +1,19 @@
+In recent years, video streaming has become the most dominant contributor to global Internet traffic.
+The Cisco Visual Networking Index forecasts an increase in video traffic, which is expected to reach 82\% by 2021, up from 73\% in 2016 \citep{CiscoIndex}.
+The rapid increase of video streaming services creates an extremely huge profit for streaming service providers.
+In the context of a highly competitive streaming service market, service providers such as YouTube, Netflix, or Amazon must improve and ensure a sufficient video quality to satisfy the user's expectation, resulting in high quality of experience (QoE).
+However, video streaming services are frequently influenced by dynamic network conditions (e.g., throughput, available bandwidth) which can lead to distorted events (e.g., bitrate switching, rebuffering events).
+These distorted events can negatively affect the user's satisfaction, resulting in the deterioration of the user's QoE.
+The capability of continuously predicting and monitoring the user's QoE in real-time can help video streaming controllers perform a QoE-based network control and management to alleviate the QoE deterioration, resulting in higher overall levels of the user's QoE \citep{QABR_Chanh, QABR_DeepQ}.
+Therefore, there is a need for developing reliable QoE prediction models in order to quickly and accurately determine the user's QoE.
+
+
+However, the continuous prediction of QoE is challenging since the user's QoE is affected by many influence factors such as video quality, video content, bitrate switching, rebuffering, etc.
+Moreover, in order to accurately predict the user's QoE, it needs to capture the complex temporal dependencies in sequential QoE data and the non-linear relationships among these QoE influence factors  \citep{EffectSizesOfInfluenceFactors, QoEModel_TimeVaryingSubjectiveQuality, QoEModel_TVQoE_ContinuousTimeQoE, NetflixQoE}.
+Additionally, QoE prediction models have to adapt to the dynamic changes in network conditions in real-time.
+Therefore, it is necessary to improve the prediction accuracy of QoE models that can perform consistently well across diverse scenarios of video streaming.
+Furthermore, it is necessary to optimize the model computational complexity for real-time QoE monitoring.
+These factors form the motivation for this thesis.
+
+
+The main goal of the thesis is to improve the QoE prediction performance in terms of both prediction accuracy and computational complexity of QoE prediction models for QoE-based network control and management.

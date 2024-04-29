@@ -1,0 +1,42 @@
+\chapter{Discussion}
+\label{ch:Discussion}
+
+
+\renewcommand{\SectionsDir}{Chapter6/Sections}
+\renewcommand{\FigsDir}{Chapter6/Figs}
+\renewcommand{\TablesDir}{Chapter6/Tables}
+
+
+This chapter discusses the QoE prediction performance of the three QoE models proposed in this thesis.
+Section \ref{Discussion:sec:InstantaneousQoE} discusses the performance of two instantaneous QoE prediction models which are BiLSTM-QoE and CNN-QoE. 
+Section \ref{Discussion:sec:CumulativeQoE} summarized the advantages and remaining issues of the cumulative QoE prediction model.
+
+
+\section{QoE prediction performance of BiLSTM-QoE and CNN-QoE models}
+\label{Discussion:sec:InstantaneousQoE}
+
+\Table[tb]{\TablesDir/compare}
+  {QoE prediction accuracy of the BiLSTM-QoE and CNN-QoE over the LIVE Netflix Video QoE Database.\label{tbl:Compare}}
+
+In term of accuracy, the BiLSTM-QoE and CNN-QoE models are both outperforms the existing studies, as shown in Section \ref{BiLSTM:sec:Evaluation} and \ref{CNN:sec:Evaluation}.
+Table \ref{tbl:Compare} tabulated the comparison in QoE prediction accuracy between our models and reference models over the LIVE Netflix Video QoE Database.
+Accordingly, the CNN-QoE model provides a competitive performance in terms of PCC and SROCC against the BiLSTM-QoE model.
+It should be noted that the BiLSTM-QoE model was evaluated on only one database.
+In contrast, three different databases were used to assess the performance of the CNN-QoE model.
+Section \ref{CNN:sec:Evaluation} showed that the CNN-QoE model can perform consistently well across the QoE databases.
+
+
+Moreover, we also introduce several improvements to the CNN-QoE architecture to overcome the computational complexity drawbacks of LSTM-based QoE models.
+These improvements helped the model run faster than the reference models, leading to real-time QoE prediction advantages.
+Therefore, the CNN-QoE model can be an excellent choice for predicting the instantaneous QoE.
+
+
+\section{Cumulative QoE prediction model}
+\label{Discussion:sec:CumulativeQoE}
+
+The results of the cumulative QoE prediction model validated the impact of memory effects and DoI on the user's QoE.
+Moreover, the model can quickly and precisely estimate the cumulative QoE in the experiment.
+However, it still has some limitations.
+First, the model relies on an instantaneous QoE prediction model to predict the user's cumulative QoE due to the lack of data on subjective QoE evaluations.
+Second, the correlation between DoI and the user's QoE was not so high, hence, the prediction accuracy of the model is perhaps not sufficient.
+Finally, the model should be evaluated in multiple databases to understand how well the model will perform across diverse scenarios of video streaming.

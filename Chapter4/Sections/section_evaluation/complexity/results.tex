@@ -1,0 +1,17 @@
+\begin{table}[tb]
+  \caption{Computational complexity of the CNN-QoE on the personal computer.}
+  \label{tbl:Complexity_PC}
+  \centering
+  \input{\TablesDir/tho.t7}
+\end{table}
+
+
+Table \ref{tbl:Complexity_PC} show the computational complexity results of the proposed CNN-QoE compared to the TCN-QoE and LSTM-QoE.
+In general, the CNN-QoE requires a higher number of parameters and FLOPs in comparison with LSTM-QoE to achieve higher accuracy.
+Although the FLOPs of the proposed model are larger, the inference time is 3 times faster than the LSTM-QoE model.
+This indicates that the proposed model can efficiently leverage the power of parallel computation to boost up the computing speed.
+It can be seen from Table \ref{tbl:Complexity_PC} that the architecture complexity of TCN-QoE is extremely higher than our proposed CNN-QoE model in terms of number of parameters and FLOPs.
+However, the accuracy of TCN-QoE is not quite comparable with the CNN-QoE as shown in Tables \ref{tbl:Accuracy_LFOVIA}, \ref{tbl:Accuracy_LiveMobileStall}, and \ref{tbl:Accuracy_LiveNetflix} .
+It proves that the proposed improvement adapted on the original TCN architecture allow CNN-QoE to effectively capture the complex temporal dependencies in a sequential QoE data.
+
+

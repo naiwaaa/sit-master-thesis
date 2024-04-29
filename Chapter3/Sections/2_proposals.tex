@@ -1,0 +1,18 @@
+\Figure[tb][width=0.8\linewidth]{\FigsDir/BiLSTM.png}
+  {The proposed BiLSTM-QoE architecture.\label{fig:BiLSTM}}
+
+
+The work in \citep{QoEModel_LSTM} predicts the user's QoE using LSTM which is a special kind of Recurrent Neural Networks.
+With recurrent connections in the hidden layer, LSTM can capture temporal dependencies in sequential QoE data.
+However, it is very complex to rely on a single LSTM to capture these dependencies and the complex interactions among QoE influence factors such as video quality, bitrate switching, rebuffering events.
+Moreover, unidirectional LSTM structure only considers forward dependencies, thus, useful information may be filtered out.
+Therefore, a novel QoE prediction model based on BiLSTM is taken into account.
+
+
+BiLSTM processes sequential features in both forward and backward directions, thereby it can access temporal dependencies in both directions and result higher level of representations of input features.
+The bidirectional networks have been proved that it has better performance compare with unidirectional ones in many fields \citep{BiLSTM_TrafficSpeed, BiLSTM_HybridSpeech, BiLSTM_NonNativeSpeech}.
+
+
+The proposed architecture of the BiLSTM-QoE model, illustrated in Figure \ref{fig:BiLSTM}, consists of two main layers: BiLSTM layer and LSTM layer.
+BiLSTM layer connects two separate hidden layers to learn the sequential input features in two directions (forward and backward).
+The output of BiLSTM layer will be fed into the LSTM layer to predict the instantaneous QoE.

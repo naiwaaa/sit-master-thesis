@@ -1,0 +1,31 @@
+\chapter{Conclusion and Future Work}
+\label{ch:Conclusion}
+
+
+%********************************** %First Section  **************************************
+\section{Summary}
+
+
+In this thesis, three QoE prediction models for video streaming was presented in order to improve the QoE prediction performance in terms of both prediction accuracy and computational complexity.
+The BiLSTM-QoE model was first introduced to enhance QoE prediction accuracy by utilizing the advantages of BiLSTM networks.
+However, BiLSTM increases the model complexity which makes it not suitable for real-time QoE monitoring.
+Thus, the CNN-QoE model was then proposed to leverage the parallel processing in CNN architecture.
+The model achieved not only the state-of-the-art QoE prediction accuracy but also the high reduction in computational complexity.
+Since human-related influence factors play an important role in QoE modeling, we introduced the cumulative QoE prediction model that predicts the user's cumulative perception which takes into account the impact of past events during a streaming session.
+The cumulative QoE prediction model provides a promisingly alternative and reliable approach in modeling QoE towards QoE-based control and management.
+
+
+%********************************** %Second Section  *************************************
+\section{Future Work}
+
+In the future, we plan to extend this thesis by focusing on the following research:
+
+\subsection{Develop a cumulative QoE database}
+
+It was difficult to conduct a medium to large scale experiment for gathering cumulative QoE evaluations.
+Further studies should be carried out to use a larger cumulative QoE database in order to develop more accurate prediction models and obtain more data for analyzing the impacts of human-related factors on the user's perception.
+
+\subsection{Consider more QoE influence factors}
+
+In this thesis, human-related factors were considered in QoE modeling and show promising results in improving the QoE prediction accuracy.
+However, there are many QoE influence factors (e.g., context, content-related) that have not been taken into account since it is challenging to obtain this information from the users. In order to accurately measure the user's QoE, further studies should investigate more QoE influence factors and apply those factors in QoE modeling.

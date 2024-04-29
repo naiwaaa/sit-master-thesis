@@ -1,0 +1,18 @@
+Recently, huge research efforts have been carried out to utilize the Long Short-Term Memory (LSTM) approach to model and predict several types of sequential data.
+The work in \citep{QoEModel_LSTM} was one of the first studies to apply the LSTM to QoE prediction in video streaming.
+The study proposed a continuous QoE prediction model, namely LSTM-QoE, utilizing the LSTM to capture the nonlinearities and the complex temporal dependencies in sequential QoE data.
+The LSTM model can leverage past events occurring during a streaming session by passing them through its chain-like gated structure.
+Although having shown promising results, there also have been suspicions that useful information may be filtered out or not efficiently passed through the chain-like structure of the unidirectional LSTM model since it only forwards the information within a single direction (from past to future).
+There is a high possibility that useful information may be missed out or not effectively forwarded \citep{BiLSTM_TrafficSpeed}.
+Therefore, it is highly necessary to take into consideration backward direction (from future to past) as well, or, in other words, a bi-directional model.
+
+
+The idea aligns well with the impact of memory on human perception: when conducting subjective QoE tests, users often recall previous events happening during the streaming session that have a significant influence on his/her satisfaction.
+This shows the potential of using a Bidirectional LSTM (BiLSTM) model to improve the accuracy of continuous QoE prediction.
+
+
+In this chapter, the BiLSTM-QoE is presented.
+First, Section \ref{BiLSTM:sec:Proposals} introduces the architecture of the BiLSTM-QoE model.
+Then, the evaluation results of the model is presented in Section \ref{BiLSTM:sec:Evaluation}.
+Section \ref{BiLSTM:sec:Discussion} then discusses the advantages and disadvantages of the model.
+Finally, Section \ref{BiLSTM:sec:Summary} summaries this chapter.

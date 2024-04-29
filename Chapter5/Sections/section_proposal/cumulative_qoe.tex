@@ -1,0 +1,10 @@
+Through the investigation of the above human-related influence factors, the proposed cumulative QoE model is generally presented in Eq.\,\ref{eqn:Cumulative_QoE}. In this model,
+to quantify how each of the user's past experiences influences the cumulative perception,
+the instantaneous QoE needs to be weighted by the memory effect from the beginning of playback to the investigated time point $t$ within a streaming session.
+According to our proposed model, the procedure of estimating cumulative QoE is described as follows: Firstly, the instantaneous QoE is predicted by LSTM-QoE model \cite{QoEModel_LSTM}, and stored into vector ${Q}_{t} = (q_{0},  q_{1}, \dots, q_{t})$. Secondly, the memory weight is calculated by the Eq.\,\ref{eqn:Weight} to form vector ${W}_{t} = (w_{0},  w_{1}, \dots, w_{t})$.
+
+\begin{equation} \label{eqn:Cumulative_QoE}
+  CQ_{t} = \lambda_{1} \left ( {Q}_{t}\times{W}^{T}_{t} \right ) + \lambda_{2}DoI
+\end{equation}
+
+where $\lambda_{1}$, $\lambda_{2}$ are correlation coefficients which respectively determine the contribution of the user's past experience and user's interest in video content to the predicted cumulative QoE $CQ_{t}$ at time instant $t$.

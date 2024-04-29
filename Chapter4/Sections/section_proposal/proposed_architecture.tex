@@ -1,0 +1,67 @@
+\Figure[!t][width=0.95\linewidth]{\FigsDir/tho4.png}
+   {The proposed CNN-QoE architecture.\label{fig:ProposedArchitecture}}
+   
+\Figure[!t][width=0.95\linewidth]{\FigsDir/tho5.png}
+   {The proposed residual block used in the proposed architecture.\label{fig:ProposedResidualBlock}}
+   
+Figure \ref{fig:ProposedArchitecture} illustrates the overview of the CNN-QoE's architecture.
+The CNN-QoE leverages the advantages of 1D convolutions, dilated causal convolutions and residual block in TCN architecture.
+To adapt the TCN to QoE prediction tasks, a number of improvements are made as follows:
+
+\begin{itemize}
+  \item An initial causal convolution layer is added to the input and then connects to residual block which includes a dilated causal convolution layer.
+  \item The residual block is simplified by leveraging the advantages of Scaled Exponential Linear Units (SeLU) activation function \cite{SeLU}.
+\end{itemize}
+These distinguishing characteristics are discussed as below.
+
+%=========================================
+
+\subsubsection{Causal convolution to extract local features}
+
+The architecture of the proposed model comprises of one causal convolution layer and a stack of dilated causal convolutions, while the TCN consists of only a number of dilated causal convolutions.
+A causal convolution layer is added between the input time-series and the first residual block as shown in Figure \ref{fig:ProposedArchitecture}.
+This causal convolution layer can extract the local features of the adjacent time-steps in the sequential QoE data.
+Afterward, the following dilated causal convolution layers are leveraged to extract the global features between far-apart time steps.
+These layers help the model to learn the most informative features in the time series input, resulting in higher accuracy.
+
+%=========================================
+
+\subsubsection{SeLU activation function}
+
+Activation function plays an important role in allowing the model to learn non-linear representations of the input features.
+When training a deep learning model, the vanishing and exploding gradient are the most challenging problems that prevent the network from learning the optimal solution.
+The TCN model gets rid of these problems by integrating
+%==================================================================================
+% \revise{
+ReLU activation function \cite{Network_Relu},
+% <explaination is not enough, only explained with the reference number in section III-4>
+% }
+%==================================================================================
+weight normalization \cite{Network_WeightNorm1} and dropout \cite{Network_Dropout1} layer as shown in Figure \ref{fig:TCN_residualBlock}.
+In the proposed CNN-QoE, those layers are replaced with the SeLU to leverage its advantages and simplify the residual block as shown in Figure \ref{fig:ProposedResidualBlock}.
+SeLU is a self-normalizing activation function.
+It converges to zero mean and unit variance when propagated through multiple layers during network training, thereby making it unaffected by vanishing and exploding gradient problems.
+Moreover, SeLU also solves the "dying ReLU" problem where the ReLU function always outputs the same value of 0 for any input, so the gradient descent is not able to alter the learnable parameters.
+At the same time, SeLU also reduces the training time and learns robust features more efficiently than other networks with normalization techniques, such as weight normalization \cite{SeLU}.
+SeLU activation function described as follow \cite{SeLU}:
+
+\begin{equation}
+\label{eq:SeLU}
+  SeLU(x) = \lambda \begin{pmatrix}
+    x, & \textit{if } x > 0 \\ 
+    \alpha \textit{exp}(x) - \alpha, & \textit{if } x \leq 0 
+  \end{pmatrix}
+\end{equation}
+
+% which has the gradient:
+
+% \begin{equation}
+%   \frac{d}{dx}SeLU(x) = \begin{pmatrix}
+%     \lambda & \textit{if } x > 0 \\
+%     SeLU(x) + \lambda \alpha & \textif{if } x \leq 0
+%   \end{pmatrix}
+% \end{equation}
+where $\alpha = 1.67733$ and $\lambda = 1.0507$. These are the same values as the ones proposed in \cite{SeLU}.
+
+% \revise{(The reason why you use Scale Exponential Linear Units function here must be explained. Why not others?)}
+

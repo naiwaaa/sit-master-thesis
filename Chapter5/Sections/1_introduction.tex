@@ -1,0 +1,40 @@
+Most of existing works only focused on modeling the overall or the instantaneous QoE, which have shown insufficient characteristics.
+The overall QoE \cite{QoEModel_OP_EstimatingQoE, QoEModel_OP_DerivingValidatingUserExperience, QoEModel_OP_VideoQualityMetric}, which demonstrates the final subjective judgment for a streaming session, can only be assessed when the viewer finishes watching.
+Therefore, the overall QoE cannot be applied for real-time QoE monitor and also does not give sufficient information about events occurring during the session.
+Although the instantaneous QoE \cite{QoEModel_TimeVaryingSubjectiveQuality, QoeModel_ShortLongTermQualityModel}, on the other hand, can provide the instant perceived video quality at a certain moment, it only reflects locally the quality assessment within a specific time range, without considering the cumulative effects of prior events.
+Hence, it is highly sensitive to video impairments due to hysteresis effect \cite{TemporalHysteresisModel, StallingEvents} and does not precisely express the user's perceived video quality.
+In contrast, modeling and predicting the user's cumulative perception to a streaming video content are able to provide lots of advantages for QoE monitor and control systems since it not only reflects the user's overall satisfaction but also reveals the impact of distorted events happening during the streaming session.
+
+
+
+In addition, according to \citep{QoEDef_Qualinet}, QoE is defined as the results from the fulfillment of the user's expectation to the enjoyment of the application or service based on his or her \textit{personality} and \textit{current state}.
+Here, "personality" defines "the characteristics of a person that account for consistent patterns of feeling, thinking and behaving", whereas, "current state" stands for "situational or temporal changes in the feeling, thinking or behavior of a person".
+Therefore, human-related influence factors (e.g., perceptual factors, memory effect, user's interest in video content) play a crucial role in accurately modeling the user's QoE.
+
+
+Some studies investigate and quantify the impact of perceptual factors \cite{QoEModel_OP_EstimatingQoE, QoEModel_OP_DerivingValidatingUserExperience, QoEModel_OP_VideoQualityMetric, QoEModel_TimeVaryingSubjectiveQuality, QoeModel_ShortLongTermQualityModel}.
+However, the authors usually abandon the temporal dynamics and historical experience of the user's satisfaction, which are referred to as the memory effects \cite{MemoryEffects_WebQoE}.
+Some other studies attempt to clarify the role of primacy and recency effects \cite{QoEModel_BitrateDistribution, QoEModel_OM_DistortionsRebuffMemory, QoEModel_NARX_DynamicNetworks, LFOVIA, QoEModel_TVQoE_ContinuousTimeQoE, QoEModel_NLSS, QoEModel_LSTM}, resulting in the high accurate QoE prediction.
+Typically, the primacy and recency effects \cite{PrimacyVsRecency} determine the memory influence of impairments occurring at the beginning and the end of streaming session \cite{NetflixQoE}, respectively.
+Besides, the effect of unpleasant events which take place in the middle of the session also leaves a considerable impact on the perceived video quality \cite{NetflixQoE,StallingEvents}.
+Theoretically, such impacts can be represented by an exponential deterioration of memory retention in time (defined by \textit{forgetting curve}) \cite{UserForgetful, EvaluatingForgettingCurves, Ebbinghaus_ForgettingCurve} for infrequent events or by \textit{repetition} \cite{StallingEvents, Ebbinghaus_ForgettingCurve} for the repeated impairments.
+However, the influence of forgetting behavior and repetition has not been carefully investigated in existing QoE models.
+Therefore, to fully express human memory effects on QoE assessment, in addition to the primacy and recency effects, the forgetting curve and repetition should be involved in the discussion.
+
+
+Apart from that, the factors that relate to video content also have a noticeable effect on perceived QoE. Those factors might be type of video, video complexity \cite{EffectSizesOfInfluenceFactors}, etc.
+Additionally, some studies (e.g., \cite{QoSImpactUserVideoClips, SubjectiveQualityPairedComparison, QoEEvaluation_IPTV_Services}) have found that the user's interest in video content possibly generates the bias in his/her QoE evaluation.
+More concretely, the user tends to provide higher QoE scores for more attractive video contents.
+Such a behavior is influenced by the so-called degree of interest (DoI) which clarifies the interestingness of different video content, or the ability of the video content to attract the user and keep the user's interest \cite{VisualContent}.
+However, existing studies often neglect this factor due to the fact that these numerical values might vary upon different users based on their personal interests.
+
+
+For those reasons, in this chapter, we present a cumulative QoE model that extremely well quantifies multiple effects of human-related factors, that is to say, perceptual influence factors, memory effect and degree of interest (DoI).
+In order to assess the accuracy in predicting cumulative QoE, the cumulative QoE model is evaluated over LFOVIA database \cite{LFOVIA} and through the subjective evaluation.
+Evaluation results demonstrate that the cumulative QoE at different moments within a streaming session is precisely predicted by the model.
+It shows the potential of cumulative QoE that can be utilized as a better alternative than either overall QoE or instantaneous QoE in QoE monitoring and management.
+
+The rest of this chapter is organized as follows.
+Section \ref{Cumulative:sec:Proposals} investigates the influence of human-related factors and presents the cumulative QoE prediction model.
+ Section \ref{Cumulative:sec:Evaluation} evaluates the performance of the proposal and discusses the advantages and disadvantages.
+ Section \ref{Cumulative:sec:Summary} summarizes this chapter.

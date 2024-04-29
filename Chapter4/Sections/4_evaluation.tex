@@ -1,0 +1,70 @@
+\begin{table*}[!t]
+  \caption{An overview of the three public QoE databases used in the proposed model evaluation.}
+  \label{tbl:Database}
+  \centering
+  \input{\TablesDir/tho.t2.tex}
+\end{table*}
+
+In this section, we evaluate the performance of the CNN-QoE in terms of QoE prediction accuracy and computational complexity.
+The evaluation is performed by comparing the proposed model with numerous baseline models across multiple databases.
+In the following subsections, firstly, a brief explanation of baseline models is showed.
+Then, the evaluation results on accuracy and computational complexity are presented.
+Finally, the overall performance of the proposed model is discussed to illustrate its capability for real-time QoE prediction.
+
+
+%=========================================
+
+\subsection{Baseline Models}
+\label{sec:Evaluation_BaselineModels}
+\input{\SectionsDir/section_evaluation/others/baseline}
+
+% \subsection{Deployment of Deep Learning-based QoE Prediction Models on Mobile Devices}
+% \label{sec:Evaluation_Deployment}
+% \input{sections/evaluation_section/others/deployment.tex}
+
+%=========================================
+
+\subsection{Accuracy}
+\label{sec:EvaluationAccuracy}
+
+  \subsubsection{Databases}
+  \label{sec:EvaluationAccuracy_Databases}
+  \input{\SectionsDir/section_evaluation/accuracy/databases}
+
+  \subsubsection{Evaluation Settings}
+  \label{sec:EvaluationAccuracy_Settings}
+  \input{\SectionsDir/section_evaluation/accuracy/settings}
+  
+  \subsubsection{Evaluation Criteria}
+  \label{sec:EvaluationAccuracy_Criteria}
+  \input{\SectionsDir/section_evaluation/accuracy/criteria}
+  
+  \subsubsection{Results}
+  \label{sec:EvaluationAccuracy_Results}
+  \input{\SectionsDir/section_evaluation/accuracy/results}
+
+%=========================================
+
+\subsection{Computational Complexity}
+\label{sec:EvaluationComplexity}
+  In this subsection, the computational complexity of the CNN-QoE model is investigated to show its effectiveness in comparison with baseline methods including TCN-QoE and LSTM-QoE \cite{QoEModel_LSTM}.
+  These models are trained and tested on the LFOVIA Video QoE Database with a training:test ratio of 80:20.
+  
+  
+  \subsubsection{Evaluation Settings}
+  \label{sec:EvaluationComplexity_Settings}
+  \input{\SectionsDir/section_evaluation/complexity/settings}
+  
+  \subsubsection{Evaluation Criteria}
+  \label{sec:EvaluationComplexity_Criteria}
+  \input{\SectionsDir/section_evaluation/complexity/criteria}
+  
+  \subsubsection{Results}
+  \label{sec:EvaluationComplexity_Results}
+  \input{\SectionsDir/section_evaluation/complexity/results}
+  
+%=========================================
+
+\subsection{Overall Performance}
+\label{sec:EvaluationOverall}
+\input{\SectionsDir/section_evaluation/overall}

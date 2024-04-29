@@ -1,0 +1,48 @@
+\Figure[t!][width=\linewidth]{\FigsDir/tho7.png}
+   {QoE prediction performance of the CNN-QoE over the LFOVIA Video QoE Database.\label{fig:ResultLfovia}}
+
+\Figure[t!][width=\linewidth]{\FigsDir/tho8.png}
+   {QoE prediction performance of the CNN-QoE over the LIVE Mobile Stall II Video Database.\label{fig:ResultLive}}
+
+\Figure[t!][width=\linewidth]{\FigsDir/tho9.png}
+   {QoE prediction performance of the CNN-QoE over the LIVE Netflix Video QoE Database.\label{fig:ResultNetflix}}
+
+
+\begin{table}[t]
+  \caption{QoE prediction performance of the CNN-QoE over the LFOVIA Video QoE Database.}
+  \label{tbl:Accuracy_LFOVIA}
+  \centering
+  \input{\TablesDir/tho.t3}
+\end{table}
+
+\begin{table}[t]
+  \caption{QoE prediction performance of the CNN-QoE over the LIVE Mobile Stall Video Database II. Boldface indicates the best result.}
+  \label{tbl:Accuracy_LiveMobileStall}
+  \centering
+  \input{\TablesDir/tho.t4}
+\end{table}
+
+\begin{table}[t]
+  \caption{QoE prediction performance of the CNN-QoE over the LIVE Netflix Video QoE Database. Boldface indicates the best result.}
+  \label{tbl:Accuracy_LiveNetflix}
+  \centering
+  \input{\TablesDir/tho.t5}
+\end{table}
+
+
+Figures \ref{fig:ResultLfovia}, \ref{fig:ResultLive} and \ref{fig:ResultNetflix} illustrate the QoE prediction performance over the three databases using the proposed CNN-QoE model.
+In general, the proposed model produces superior and consistent QoE prediction performance in different situations with and without rebuffering events.
+Patterns \#1-\#3 in Figure \ref{fig:ResultLfovia}, \ref{fig:ResultLive}, and \ref{fig:ResultNetflix} show that the proposed model can effectively capture the effect of rebuffering events on the user's subjective QoE.
+Especially, even the rebuffering event repeatedly occurs as illustrated in pattern \#3 in Figure \ref{fig:ResultLfovia} and patterns \#2, \#3 in Figure \ref{fig:ResultLive}, the QoE predictions still correlate well with the subjective QoE.
+Meanwhile, pattern \#0 in Figure \ref{fig:ResultLfovia} and pattern \#1 in Figure \ref{fig:ResultNetflix} show some fluctuations in the predicted QoE.
+However, the amplitudes of these fluctuations are small and the varying trends in the subjective QoE are still adequately captured by the proposed model.
+Additionally, a linear trend is subsequently introduced in the predicted QoE after each rebuffering event as shown in patterns \#1 - \#3, Figure 7.
+It means that the model is not overfitting and can be trained on the LFOVIA Video QoE Database with larger epochs to further increase its nonlinearity and QoE prediction accuracy.
+
+The QoE prediction performance results over each database in comparison with existing models are shown in the Tables \ref{tbl:Accuracy_LFOVIA}, \ref{tbl:Accuracy_LiveMobileStall} and \ref{tbl:Accuracy_LiveNetflix}.
+It is important to note that the Hammerstein-Wiener model in \cite{QoEModel_Wireless} was employed as reported in their work in order to ensure a fair comparison. 
+From these tables, it is revealed that the CNN-QoE outperforms the existing QoE models within all the criteria, especially in terms of RMSE.
+Moreover, the accuracy produced by CNN-QoE is consistent across the databases, thus marking it as an efficient comprehensive model.
+The results illustrate that the CNN-QoE architecture is capable of capturing the complex inter-dependencies and non-linear relationships among QoE influence factors.
+Interestingly, there is a significant improvement in QoE prediction accuracy when comparing with TCN-QoE.
+It means that the enhancements in the proposed architecture have made the model more suitable for QoE prediction.

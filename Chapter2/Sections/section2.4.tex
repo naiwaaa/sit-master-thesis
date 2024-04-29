@@ -1,0 +1,20 @@
+QoE modeling for video streaming services has received enormous attention due to its critical importance in QoE-aware applications.
+A number of different continuous QoE prediction models have been proposed \cite{QoEModel_TimeVaryingSubjectiveQuality, QoeModel_ShortLongTermQualityModel, QoEModel_BitrateDistribution, QoEModel_NARX_DynamicNetworks, QoEModel_AugmentedAutoregressive, QoEModel_TVQoE_ContinuousTimeQoE, QoEModel_NLSS, QoEModel_3D, QoEModel_Wireless}.
+The authors in \cite{QoEModel_TimeVaryingSubjectiveQuality} modeled the time-varying subjective quality (TVSQ) using a Hammerstein-Wiener model.
+The work in \cite{QoEModel_AugmentedAutoregressive} proposed a model based on the augmented Nonlinear Autoregressive Network with Exogenous Inputs (NARX) for continuous QoE prediction.
+It should be noted that these models did not consider rebuffering events which usually happen in video streaming \cite{Survey_QoE, Survey_QoEModeling}.
+On the other hand, the study in \cite{QoEModel_NARX_DynamicNetworks} took into account rebuffering events, perceptual video quality, and memory-related features for QoE prediction.
+However, the QoE prediction accuracy varied across different video streaming scenarios.
+The reason is that the model suffered from the difficulty in capturing the complex dependencies among QoE influence factors, leading to unreliable and unstable QoE prediction performances.
+
+
+In order to address the above challenges, the authors in \cite{QoEModel_LSTM} proposed a QoE prediction model, namely, LSTM-QoE, which was based on Long Short-Term Memory networks (LSTM).
+The authors argued that the continuous QoE is dynamic and time-varying in response to QoE influencing events such as rebuffering \cite{MeasuringQoEOfHTTP} and bitrate adaptation \cite{QoEModel_TimeVaryingSubjectiveQuality}.
+To capture such dynamics, LSTM was employed and the effectiveness in modeling the complex temporal dependencies in sequential QoE data was shown.
+The model was evaluated on different QoE databases and outperformed the existing models in terms of QoE prediction accuracy.
+However, the computational complexity of the model was not fully inspected.
+Since the recurrent structure in LSTM can only process the task sequentially, the model failed to effectively utilize the parallel computing power of modern computers, leading to a high computational cost.
+Therefore, the feasibility to utilize the LSTM-QoE model for real-time video streaming applications remains an open question.
+
+
+Therefore, in this thesis, we aim to improve the QoE prediction performance of QoE prediction models by enhancing the QoE prediction accuracy and optimizing the computational complexity.

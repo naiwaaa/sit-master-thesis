@@ -1,0 +1,23 @@
+Based on the main goal, the work present in the thesis resulted in three novel QoE prediction models.
+These models are summarized as follows:
+
+
+\begin{enumerate}
+  \item A QoE prediction model, namely BiLSTM-QoE, is proposed for continuously predicting the user's QoE.
+  The BiLSTM-QoE model utilizes Bidirectional Long Short-Term Memory networks to deal with the complex temporal dependencies in sequential QoE data.
+  The evaluation results show that the BiLSTM-QoE model achieves promising performance in terms of accuracy compared with other referenced models.
+  
+  
+  \item Despite the high accuracy of the BiLSTM-QoE model, the sequential processing characteristic in BiLSTM architecture increases the computational complexity of the model.
+  Thus, the CNN-QoE model is presented to overcome the computational complexity drawbacks, while at the same time improve QoE prediction accuracy.
+  Based on a comprehensive evaluation, the CNN-QoE model can provide a high QoE prediction performance that outperforms the existing approaches.
+  
+  
+  \item The BiLSTM-QoE and CNN-QoE models focused on continuously predicting the instantaneous QoE which can provide the user's instant perceived video quality at a certain moment.
+  However, in order to correctly determine the user's QoE for performing a QoE-based network control and management, it is necessary to produce a highly accurate QoE prediction either at any moment or at the end of a streaming session.
+  Thus, the user's cumulative QoE can be potentially utilized as a better alternative than instantaneous QoE.
+  The cumulative QoE is cumulatively estimated from the time when the viewer starts watching a streaming video content to any moment of the streaming session.
+  A novel cumulative QoE prediction model is proposed that precisely assesses the user's cumulative perception.
+  Moreover, in order to accurately model the user's cumulative QoE, the model also takes into account the human-related factors (i.e., memory effects, user's interest in the video content) which is not considered in the BiLSTM-QoE and CNN-QoE models.
+  Evaluation results indicated that the model performs excellently in predicting cumulative QoE at any moment within a streaming session.
+\end{enumerate}

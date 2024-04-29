@@ -1,0 +1,52 @@
+In this section, we start with the explanation of the proposed model's establishment where the necessary parameters including $\{\alpha_{P}, \alpha_{R}, \alpha_{RP}\}$, ${\{\beta_{1}, \beta_{2}, \beta_{3}\}}$ and $\{\lambda_{1}, \lambda_{2} \}$ are numerically determined. Afterward, we briefly evaluate and discuss the prediction performance of our model. The evaluation is two-fold. First, the prediction performance of the proposed model is quantitatively and qualitatively assessed on test videos in a specific database \cite{LFOVIA}. Second, a subjective test is conducted in order to evaluate how well the predicted cumulative QoE correlates with subjective cumulative evaluation at different moments of a streaming session. Finally, the complexity of the proposed model is also analyzed for real-time cumulative QoE prediction.
+
+
+%/===============================
+\subsection{Model Establishment}
+\label{section:Training}
+
+  The parameters of the proposed model was computed according to a four-step procedure as follows: 
+ 
+  \begin{enumerate}[label=\arabic*)]
+    \item A specific publicly available database was employed for establishing and evaluating the proposed model. 
+    \item An LSTM-QoE model \cite{QoEModel_LSTM} was trained to predict the instantaneous QoE values.
+    \item The memory effects' parameters $\{ \alpha_{P}, \alpha_{R}, \alpha_{RP} \}$ were computed to form the memory weight vector.
+    \item The coefficients of memory weight ${\{\beta_{1}, \beta_{2}, \beta_{3}\}}$ in Eq. \ref{eqn:Weight} and the parameters of the proposed model $\{ \lambda_{1}, \lambda_{2} \}$ in Eq. \ref{eqn:Cumulative_QoE} were determined through the predicted instantaneous QoE values and the subjective DoI collected from the experiment in subsection 3.3.
+  \end{enumerate}
+  The details of each step are described in the next sub-subsections.
+  
+  
+  \subsubsection{Database description} \label{section:DatabaseDescription}
+    Our model was established and evaluated based on a set of 36 distorted videos in LFOVIA Video QoE Database \cite{LFOVIA}. These videos have different playout patterns distorted by bitrate switching and rebuffering events. In this database, the overall QoE and the time-varying instantaneous QoE scores for those videos were obtained are in the range [0, 100], with score 0 being the worst and 100 being the best. The set of distorted videos was divided into training and testing sets with a training:testing ratio of 80:20. Accordingly, there were 28 videos in the training set and 8 videos in the testing set. The training and testing set were respectively used to obtain the model parameters described in sub-subsection \ref{parameter} and evaluate the prediction performance of the model presented in subsection \ref{section:ObjectiveEvaluation}.
+
+  \subsubsection{Instantaneous QoE Prediction by LSTM-QoE}
+  \input{\SectionsDir/section_evaluation/instant_prediction.tex}
+
+  \subsubsection{Parameters Selection}
+  \label{parameter}
+  \input{\SectionsDir/section_evaluation/parameters_selection.tex}
+
+%/=================================================
+\subsection{Performance Evaluation on Testing Videos}
+\label{section:ObjectiveEvaluation}
+  
+  \input{\SectionsDir/section_evaluation/results_dataset.tex}
+
+%/================================
+\subsection{Subjective Evaluation}
+\label{section:SubjectiveEvaluation}
+
+  \input{\SectionsDir/section_evaluation/results_experiment.tex}
+
+%/================================
+\subsection{Computational Complexity}
+  The computational complexity of the proposed model is determined by the computational complexity of forming the instantaneous QoE vector $Q_{t} = (q_{0}, q_{1},...,q_{t})$ predicted by the LSTM-QoE model.
+  It is important to note that at the time instant $t$, the previous instantaneous QoE values $\{ q_{0}, q_{1},...,q_{t-1} \}$ have already been predicted and cached in the memory. Since the LSTM-QoE model takes up only a very small computational overhead to predict $q_{t}$ in order to form the vector $Q_{t}$, the cumulative QoE of each second $CQ_{t}$ can be predicted in real-time.
+  To demonstrate this, we calculated the required computing time for training LSTM-QoE model and predicting the instantaneous QoE at the end of a session $q_{L}$. All the timing experiments were carried out on a 18.04 Ubuntu LTS Intel i7-8750H @ 2.20GHz and 16GB RAM system. The LSTM-QoE model took $620.740$ seconds to train and $0.4917$ milliseconds to predict $q_{L}$. Furthermore, the cumulative QoE $CQ_{L}$ prediction took $0.5103$ milliseconds. Thus the proposed model is suitable for real-time cumulative QoE prediction.
+
+
+\subsection{Overall Evaluation}
+\label{section:OverallEvaluation}
+  In evaluation section, we assessed the performance of the model on a publicly available database and the subjective test. By doing this way, we can validate the predicted cumulative QoE in both quantitative and qualitative manners. Typically, the model can precisely provide cumulative QoE prediction in different scenarios. Therefore, the model promisingly provides an alternative and reliable approach in modeling QoE towards QoE based control and management.
+  
+  

@@ -1,0 +1,6 @@
+The results demonstrate that the proposed model using BiLSTM, measuring both forward and backward directions, is capable of learning more useful information from QoE influence factors such as video quality, bitrate switching, and rebuffering events.
+For example, in pattern \#1 (which is ideal circumstances where no rebuffering or bitrate changes occurred), \#2 (one rebuffering occurred), \#6 (two rebufferings occurred close together), the QoE prediction performance is very good and the trends of the predicted QoE are pretty similar with the subjective QoE.
+It has proved that the model can adapt well to different scenarios occurring during a streaming session.
+However, the accuracy of the model may fluctuate across different playout patterns in the database.
+For example, the accuracy on patterns without rebuffering (\#1, \#3, \#5, \#8) are relatively worse, due to the fact that among four features, only the STSQ values are nonzero, thereby, the prediction model depends only on STSQ inputs that may hurt the accuracy.
+Thus, it is necessary to consider the other general valuable features whose values are nonzero in any scenarios, to achieve higher prediction accuracy.

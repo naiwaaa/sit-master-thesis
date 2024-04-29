@@ -1,0 +1,16 @@
+The BiLSTM-QoE model achieved high accuracy since it is capable of capturing temporal dependencies in sequential QoE data.
+However, the chain structure in LSTM layers requires a high computational cost for practically predicting the user's QoE due to the use of sequential processing over time.
+It means that the subsequent processing steps must wait for the output from the previous ones.
+This leads to an open question about the performance of the model on real-time QoE-based monitoring and management.
+
+Recently, Temporal Convolutional Network (TCN) \cite{Network_TCN}, a variation of Convolutional Neural Network (CNN), has emerged as a promisingly alternative solution for the sequence modeling tasks.
+TCN adopts dilated causal convolutions \cite{Network_Dilated1, Network_Dilated2, Network_Dilated3} to provide a powerful way of extracting the temporal dependencies in the sequential data.
+Different from LSTM, the computations in TCN can be performed in parallel, providing computational and modeling advantages.
+In practical deployments, TCN convincingly outperforms canonical recurrent architectures including LSTMs and BiLSTMs across a broad range of sequence modeling tasks \cite{Network_TCN}.
+Enlightened by the great ability of TCN, an improved TCN-based model, namely QoE-CNN, is introduced for improving the QoE prediction accuracy and optimizing the computational complexity.
+
+The remainder of this chapter is organized as follows:
+Section \ref{CNN:sec:TCN} discusses the TCN architecture in detail.
+The proposed model is presented in Section \ref{CNN:sec:Proposals}.
+Section \ref{CNN:sec:Evaluation} and \ref{CNN:sec:Discussion} provide evaluation results of the proposed model and their discussion, respectively.
+Finally, this chapter is concluded in Section \ref{CNN:sec:Summary}.

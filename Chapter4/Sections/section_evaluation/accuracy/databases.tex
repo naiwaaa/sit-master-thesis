@@ -1,0 +1,25 @@
+There are three public QoE databases used for the evaluation of QoE prediction accuracy, including LFOVIA Video QoE Database \cite{LFOVIA}, LIVE Netflix Video QoE Database \cite{NetflixQoE}, and LIVE Mobile Stall Video Database II \cite{StallingEvents}.
+The descriptions of these databases are summarized in Table \ref{tbl:Database}.
+
+To evaluate the QoE prediction accuracy, the evaluation procedures performed on each database are described as follows:
+\begin{itemize}
+  \item
+    LFOVIA Video QoE Database \cite{LFOVIA} consists of 36 distorted video sequences of 120 seconds duration.
+    The training and testing procedures are performed on this database in the same way as the one described in \cite{QoEModel_LSTM}.
+    The databases are divided into different train-test sets.
+    In each train-test sets, there is only one video in the testing set, whereas the training set includes the videos that do not have the same content and playout pattern as the test video. 
+    Thus, there are 36 train-test sets, and 25 of 36 videos are chosen for training the model for each test video.
+
+  \item
+    LIVE Netflix Video QoE Database \cite{NetflixQoE}:
+    The same evaluation procedure as described for LFOVIA Video QoE Database is employed.
+    There are 112 train-test sets corresponding to each of the videos in this database.
+    In each train-test set, the training set consists of 91 videos out of a total of 112 videos in the database (excludes 14 with the same playout pattern and 7 with the same content).
+  
+  \item
+    LIVE Mobile Stall Video Database II \cite{StallingEvents}:
+    The evaluation procedure is slightly different from the one applied to the above databases.
+    Firstly, 174 test sets corresponding to each of 174 videos in the database are created.
+    For each test set, since the distortion patterns are randomly distributed across the videos, randomly 80\% videos from the remaining 173 videos are then chosen for training the model and perform evaluation over the test video.
+
+\end{itemize}

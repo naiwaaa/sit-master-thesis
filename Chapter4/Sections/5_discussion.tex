@@ -1,0 +1,35 @@
+According to the above-mentioned evaluation results, it can be seen that the proposed model completely outperforms TCN-QoE where the original TCN architecture is adopted in the QoE prediction task.
+Thereby, it generally demonstrates the efficiency of the proposed improvements upon the original TCN architecture in QoE prediction for video streaming services.
+In the following subsections, the effects of the improvements including the interactions between causal convolutions and dilated causal convolutions are discussed in detail.
+
+
+%=========================================
+
+\subsection{Effects of comprising causal convolutions and dilated causal convolutions}
+
+Different from TCN \cite{Network_TCN} architecture, the proposed architecture has an initial causal convolution instead of a dilated causal convolution, as shown in Figure \ref{fig:ProposedArchitecture}.
+Unlike dilated causal convolution, a causal convolution with denser filters is more effective in extracting the local dependencies among adjacent time-steps.
+However, a stack of causal convolutions dramatically increases the model complexity.
+Therefore, we combine causal convolutions with dilated causal convolutions to achieve desirable prediction accuracy, while eliminating the complexity possibly caused by only utilizing causal convolutions in the architecture.
+As a result, the proposed model can effectively capture the temporal dependencies among adjacent and far-apart time-steps in the sequential QoE data, providing a better QoE prediction accuracy, especially in terms of RMSE.
+
+Moreover, it can be seen from Tables \ref{tbl:Complexity_PC} that the FLOPs of the proposed model are larger than those of LSTM-QoE.
+The reason is that the convolution layers require more operations for performing convolution between a number of filters and the input time series.
+However, the proposed model runs faster than the baseline models, which indicates that the convolution operations are fully parallelized, leading to real-time QoE prediction advantages.
+
+
+%=========================================
+
+
+\subsection{Effects of simplifying the residual block and using SeLU}
+
+To simplify the residual block, only one dilated causal convolution is adopted in the residual block instead of two as in the original TCN architecture (as illustrated in Figure \ref{fig:TCN_residualBlock} and Figure \ref{fig:ProposedResidualBlock}).
+The reason behind this is the fact that the sequential QoE data is much simpler than the preferred data of TCN \cite{Network_TCN} (i.e., speech signal data).
+Therefore, two dilated causal convolution layers can make the model easily suffers from overfitting and reduces the QoE prediction accuracy.
+Reducing the number of dilated causal convolutions in the residual block helps the proposed model to be easily trained and reduce overfitting.
+Furthermore, SeLU \cite{SeLU} activation function also enables the model to learn faster and converge better to the optimal values, subsequently improving the QoE prediction accuracy.
+
+In terms of computational complexity, observing from Tables \ref{tbl:Complexity_PC}, it is obvious that these improvements in the residual block tremendously reduced the number of parameters compared to the one in the original TCN architecture TCN-QoE.
+Thereby, the CNN-QoE can produce smaller model size and FLOPs, faster training and inference times.
+
+In summary, the improvements in the proposed architecture help provide a more stable, accurate and light-weight QoE prediction model.

@@ -1,0 +1,50 @@
+\begin{table}[t]
+  \caption{Hyperparameters for the best performance model.}
+  \label{tbl:ModelHyperparameters}
+  \centering
+  \input{\TablesDir/tho.t1}
+\end{table}
+
+When training the model, an adequate set of architecture hyperparameters must be selected to achieve the best performance.
+The proposed model consists of $L$ residual block layers, each layer contains a dilated causal convolution with a filter size of $1 \times k$, as shown in Figure \ref{fig:ProposedArchitecture} and \ref{fig:ProposedResidualBlock}.
+Each dilated convolution layer has a dilation factor $d$ doubled at each layer up, as shown in (\ref{eqn:TCN_dilatedFactor}).
+The proposed model depends on the network depth $L$ and the filter size $k$.
+These hyperparameters control the trade-off between QoE prediction accuracy and computational complexity of the model.
+To effectively optimize the hyperparameters, it is important to set a boundary for the space of possible hyperparameter values.
+
+The user's QoE is mostly affected by the recent experiences, also known as the recency effect \cite{Recency, NetflixQoE, LFOVIA}.
+The recency effect gradually decreases within 15 to 20 seconds \cite{NetflixQoE, LFOVIA} after distorted events (e.g., bitrate fluctuations, rebuffering events).
+Therefore, the effective history or the receptive field size $r$ of the model cannot be larger than 20 time-steps
+
+\begin{equation}
+  r \leq 20
+  \label{eqn:TCN_receptiveField_limit}
+\end{equation}
+
+Moreover, the receptive field depends on the number of dilated causal convolution layers $L$ and the filter size $k$.
+For example, with $l \in [1, L]$, the receptive field $r$ can be determined by (\ref{eqn:TCN_receptiveField_2}) \cite{Network_Wavenet, Network_TCN}
+
+\begin{equation}
+ r = 2^{L} \mathrm{, if} \quad k = 2
+ \label{eqn:TCN_receptiveField_2}
+\end{equation}
+
+or (\ref{eqn:TCN_receptiveField_3}) \cite{Network_ReceptiveField_3}
+
+\begin{equation}
+  r = 2^{L + 1} - 1 \mathrm{, if} \quad k = 3
+  \label{eqn:TCN_receptiveField_3}
+\end{equation}
+
+Figure \ref{fig:DilatedConv} shows an example of a three-layer ($L=3$) dilated convolutional network.
+In this figure, given the filter size of $1 \times 2$ ($k = 2$), the receptive field is computed by $r = 2^{3} = 8$.
+From (\ref{eqn:TCN_receptiveField_limit}), (\ref{eqn:TCN_receptiveField_2}), and (\ref{eqn:TCN_receptiveField_3}), the range of $L$ values can easily be defined $L \in [2, 3, 4]$.
+
+In a 1D convolution, the number of filters $n$ is also important to effectively extract the information from the inputs.
+To minimize the computation complexity of the model, the range of $n$ is set to $n \in \{16, 32, 64\}$.
+We conduct a simple grid-search of the model architecture hyperparameters with $k \in [2, 3]$, $L \in [2, 3, 4]$, and $n \in \{16, 32, 64\}$.
+Table \ref{tbl:ModelHyperparameters} shows the values of $r$, $k$, $L$, and $n$ that achieves the best performance.
+
+% The mean squared error is the default loss function for QoE prediction. Adam is adopted as the optimization strategy, with an initial learning rate set to 0.001.
+% The implementations of CNN-QoE are build based on Keras library with the Tensorflow backend.
+

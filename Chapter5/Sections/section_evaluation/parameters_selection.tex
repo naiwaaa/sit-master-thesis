@@ -1,0 +1,30 @@
+As discussed in subsection~\ref{section:MemoryEffects}, the parameters $\{ \alpha_{P}, \alpha_{R}, \alpha_{RP} \}$ indicate how memory factors impact the perceived video quality over time. The larger $\{\alpha_{P}, \alpha_{R}, \alpha_{RP} \}$ are, the easier it is for the user to forget. According to \cite{PrimacyVsRecency, NetflixQoE}, the effects of primacy and recency gradually decrease within 15 to 20 seconds. Therefore, the deteriorating time was set to 15 seconds. Since the user usually recalls unpleasant events when providing a QoE score, the effect of repetition is larger and remain longer than primacy and recency. As a result, the values of $\alpha_{RP}$ must be smaller than $\alpha_{P}$ and $\alpha_{R}$. The effect of repetition will remain within 30 seconds. The function $solve$ in MATLAB \cite{MATLAB} was employed to compute the parameters $\alpha_{P}$, $\alpha_{R}$, and $\alpha_{RP}$ according to Eq.~\ref{eqn:Primacy}, \ref{eqn:Recency}, and \ref{eqn:Repetition}, respectively. Consequently, the obtained values of parameters $\{ \alpha_{P},\alpha_{R}, \alpha_{RP} \}$ are shown in Table \ref{tbl:Parameters_MemoryEffects}.
+  
+\input{\TablesDir/parameters_memory_effects.tex}
+
+\input{\TablesDir/parameters_cumulative_qoe.tex}
+
+Thereby, the parameters $\{\beta_{1}, \beta_{2}, \beta_{3}\}$ and $\{ \lambda_{1}, \lambda_{2} \}$ of weight memory and the proposed cumulative QoE model are now can be estimated. Considering a streaming session with a video in the training set of $L$ seconds, the cumulative QoE from the beginning to the end of the streaming session was calculated as follows:
+  
+\begin{equation}
+\begin{split}
+  CQ_{L} &= \lambda_{1} \left ( {Q}_{L}\times{W}^{T}_{L} \right ) + \lambda_{2}DoI \\
+         &= \lambda_{1} \sum_{i=0}^{L}{w_{i}q_{i}} + \lambda_{2}DoI \\
+         &= \lambda_{1} \sum_{i=0}^{L}{\left ( \beta_{1}f_{P}(i) + \beta_{2}f_{R}(i) + \beta_{3}f_{RP}(i) \right ) q_{i}} + \lambda_{2}DoI
+\end{split}
+\end{equation}
+where, ${Q}_{L}$ is the vector of instantaneous QoE $(q_{0},  q_{1}, \dots, q_{L})$,  ${W}_{L}$ is the memory weight vector $(w_{0},  w_{1}, \dots, w_{L})$.
+
+
+As mentioned in subsection \ref{section:CumulativeQoE}, the cumulative QoE at the end of the session $CQ_{L}$ is also considered as the overall QoE. Therefore, we first need to minimize the least square error:
+
+\begin{equation}
+    \bm{J} = \left \| CQ_{L} - Q_{overall} \right \|^{2}
+\end{equation}
+
+
+where $Q_{overall}$ is the subjective overall user's QoE obtained from the database. A curve fitting is performed using \textit{lsqcurvefit} in MATLAB \cite{MATLAB} with 28 training videos to obtain the memory weight parameters $\{\beta_{1}, \beta_{2}, \beta_{3}\}$ and the cumulative QoE parameters $\{ \lambda_{1}, \lambda_{2} \}$. The numerical values of those parameters are shown in Table~\ref{tbl:Parameters_CumulativeQoE}.
+
+
+% \revise{We found that $\lambda_{1}$ is highest, which is about 5 times higher than $\lambda_{2}$ and $\lambda_{3}$. According to Eq. \ref{eqn:Cumulative_QoE}, this shows that the impact of the past experience is strongest, and the impact of the DoI is lowest.}
+    
